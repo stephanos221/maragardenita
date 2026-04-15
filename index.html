@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mara Gardenita — Floral Artistry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─────────────────────────────────────────
+       TOKENS & RESET
+    ───────────────────────────────────────── */
+    :root {
+      --cream:   #f3eddf;
+      --brown:   #845d3d;
+      --brown-dark: #5e4028;
+      --brown-light: #b28a65;
+      --white:   #ffffff;
+      --ink:     #2b1e12;
+      --ink-soft:#6b5040;
+
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'Jost', system-ui, sans-serif;
+
+      --space-xs:  0.5rem;
+      --space-sm:  1rem;
+      --space-md:  2rem;
+      --space-lg:  4rem;
+      --space-xl:  7rem;
+      --space-2xl: 11rem;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─────────────────────────────────────────
+       TYPOGRAPHY HELPERS
+    ───────────────────────────────────────── */
+    .eyebrow {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--brown);
+      padding-bottom: 1.4rem;
+    }
+
+    .display {
+      font-family: var(--serif);
+      font-weight: 300;
+      line-height: 1.08;
+    }
+
+    .body-copy {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--ink-soft);
+    }
+
+    /* ─────────────────────────────────────────
+       NAVIGATION
+    ───────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.6rem 4rem;
+      mix-blend-mode: normal;
+      transition: background 0.4s ease, padding 0.4s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(243, 237, 223, 0.95);
+      backdrop-filter: blur(12px);
+      padding: 1rem 4rem;
+      box-shadow: 0 1px 0 rgba(132, 93, 61, 0.1);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      transition: color 0.4s ease;
+    }
+
+    nav.scrolled .nav-logo { color: var(--ink); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      transition: color 0.3s ease;
+    }
+
+    nav.scrolled .nav-links a { color: var(--ink-soft); }
+    .nav-links a:hover { color: var(--brown); }
+
+    .nav-cta {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.65rem 1.5rem;
+      border: 1px solid rgba(255,255,255,0.6);
+      color: var(--white);
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled .nav-cta {
+      border-color: var(--brown);
+      color: var(--brown);
+    }
+
+    .nav-cta:hover {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: var(--white);
+    }
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    #hero {
+      position: relative;
+      height: 100svh;
+      min-height: 680px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=1800&q=85&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center 30%;
+      transform: scale(1.04);
+      transition: transform 6s ease-out;
+    }
+
+    .hero-bg.loaded { transform: scale(1); }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        rgba(0, 0, 0, 0.18),
+        linear-gradient(
+          to top,
+          rgba(30, 16, 6, 0.68) 0%,
+          rgba(30, 16, 6, 0.18) 55%,
+          transparent 100%
+        );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 4rem 6rem;
+      max-width: 860px;
+    }
+
+    .hero-content .eyebrow {
+      color: rgba(243,237,223,0.7);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-title {
+      font-size: clamp(3.4rem, 6vw, 6.5rem);
+      color: var(--white);
+      margin-bottom: 2rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(243,237,223,0.9);
+    }
+
+    .hero-subtitle {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 1rem;
+      letter-spacing: 0.03em;
+      color: rgba(243,237,223,0.75);
+      max-width: 420px;
+      margin-bottom: 2.8rem;
+      line-height: 1.75;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 1rem 2.4rem;
+      background: var(--brown);
+      color: var(--white);
+      border: 1px solid var(--brown);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    .hero-scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 0.9; transform: scaleY(1.1); }
+    }
+
+    /* ─────────────────────────────────────────
+       SECTION SPACING
+    ───────────────────────────────────────── */
+    section { position: relative; }
+
+    .section-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 4rem;
+    }
+
+    /* ─────────────────────────────────────────
+       ABOUT
+    ───────────────────────────────────────── */
+    #about {
+      padding: var(--space-2xl) 0;
+      background: var(--cream);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-images {
+      position: relative;
+      height: 680px;
+    }
+
+    .about-img-main {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 75%;
+      height: 85%;
+      object-fit: cover;
+    }
+
+    .about-img-accent {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 52%;
+      height: 50%;
+      object-fit: cover;
+      border: 6px solid var(--cream);
+    }
+
+    .about-text { padding-left: 2rem; }
+
+    .about-text .eyebrow { margin-bottom: 1.4rem; }
+
+    .about-title {
+      font-size: clamp(2.4rem, 3.5vw, 3.8rem);
+      margin-bottom: 2rem;
+      color: var(--ink);
+    }
+
+    .about-title em {
+      display: block;
+      font-style: italic;
+      color: var(--brown);
+    }
+
+    .about-text p + p { margin-top: 1.2rem; }
+
+    .about-signature {
+      margin-top: 2.5rem;
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--brown);
+      border-top: 1px solid rgba(132,93,61,0.2);
+      padding-top: 1.5rem;
+    }
+
+    /* ─────────────────────────────────────────
+       MARQUEE STRIP
+    ───────────────────────────────────────── */
+    .marquee-strip {
+      overflow: hidden;
+      background: var(--brown);
+      padding: 1.1rem 0;
+      white-space: nowrap;
+    }
+
+    .marquee-inner {
+      display: inline-flex;
+      animation: marquee 22s linear infinite;
+    }
+
+    .marquee-inner span {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--cream);
+      padding: 0 3rem;
+      opacity: 0.85;
+    }
+
+    .marquee-inner .dot {
+      font-style: normal;
+      opacity: 0.45;
+      padding: 0;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─────────────────────────────────────────
+       SERVICES
+    ───────────────────────────────────────── */
+    #services {
+      padding: var(--space-2xl) 0;
+      background: var(--white);
+    }
+
+    .services-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 5rem;
+    }
+
+    .services-title {
+      font-size: clamp(2.6rem, 4vw, 4.4rem);
+      color: var(--ink);
+    }
+
+    .services-title em {
+      font-style: italic;
+      color: var(--brown);
+      display: block;
+    }
+
+    .services-intro { padding-bottom: 0.5rem; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+
+    .service-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .service-card:nth-child(2) { margin-top: 3.5rem; }
+    .service-card:nth-child(3) { margin-top: -2rem; }
+
+    .service-img-wrap {
+      overflow: hidden;
+      aspect-ratio: 3/4;
+    }
+
+    .service-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .service-card:hover .service-img-wrap img { transform: scale(1.06); }
+
+    .service-info {
+      padding: 1.8rem 1.4rem 1.8rem 0;
+    }
+
+    .service-number {
+      font-family: var(--serif);
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--brown-light);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .service-name {
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+
+    .service-desc {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      color: var(--ink-soft);
+    }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.1rem;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brown);
+      transition: gap 0.3s ease;
+    }
+
+    .service-link:hover { gap: 0.9rem; }
+
+    .service-link svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--brown);
+      fill: none;
+      stroke-width: 1.5;
+      transition: transform 0.3s ease;
+    }
+
+    .service-link:hover svg { transform: translateX(3px); }
+
+    /* Full-width feature service */
+    .service-feature {
+      margin-top: var(--space-lg);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: var(--cream);
+    }
+
+    .service-feature-img {
+      height: 560px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .service-feature-text {
+      padding: 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .service-feature-text .eyebrow { margin-bottom: 1.4rem; }
+
+    .service-feature-title {
+      font-size: clamp(2rem, 2.8vw, 3.2rem);
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+
+    .service-feature-title em {
+      font-style: italic;
+      color: var(--brown);
+    }
+
+    /* ─────────────────────────────────────────
+       JOURNAL
+    ───────────────────────────────────────── */
+    #journal {
+      padding: var(--space-2xl) 0;
+      background: var(--cream);
+    }
+
+    .journal-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 4rem;
+    }
+
+    .journal-title {
+      font-size: clamp(2.4rem, 3.5vw, 4rem);
+    }
+
+    .journal-title em {
+      font-style: italic;
+      color: var(--brown);
+    }
+
+    .journal-all {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brown);
+      border-bottom: 1px solid var(--brown-light);
+      padding-bottom: 3px;
+      transition: color 0.3s, border-color 0.3s;
+      white-space: nowrap;
+      margin-bottom: 0.6rem;
+    }
+
+    .journal-all:hover { color: var(--brown-dark); border-color: var(--brown-dark); }
+
+    .journal-grid {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr 1fr;
+      gap: 2px;
+    }
+
+    .journal-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .journal-card-img-wrap {
+      overflow: hidden;
+    }
+
+    .journal-card:first-child .journal-card-img-wrap {
+      aspect-ratio: 4/5;
+    }
+
+    .journal-card:not(:first-child) .journal-card-img-wrap {
+      aspect-ratio: 3/4;
+    }
+
+    .journal-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .journal-card:hover .journal-card-img-wrap img { transform: scale(1.05); }
+
+    .journal-card-body {
+      padding: 1.4rem 0 0;
+    }
+
+    .journal-date {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--brown-light);
+      margin-bottom: 0.45rem;
+    }
+
+    .journal-card-title {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 0.5rem;
+    }
+
+    .journal-card:first-child .journal-card-title {
+      font-size: 1.7rem;
+    }
+
+    .journal-card-excerpt {
+      font-size: 0.83rem;
+      line-height: 1.8;
+      color: var(--ink-soft);
+    }
+
+    /* ─────────────────────────────────────────
+       INSTAGRAM
+    ───────────────────────────────────────── */
+    #instagram {
+      padding: var(--space-xl) 0;
+      background: var(--white);
+    }
+
+    .instagram-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .instagram-header .eyebrow { margin-bottom: 0.8rem; }
+
+    .instagram-handle {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 2.8vw, 3rem);
+      font-style: italic;
+      color: var(--brown);
+    }
+
+    .instagram-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4px;
+    }
+
+    .insta-item {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1;
+      cursor: pointer;
+    }
+
+    .insta-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .insta-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(132, 93, 61, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .insta-item:hover img { transform: scale(1.07); }
+    .insta-item:hover .insta-overlay { opacity: 1; }
+
+    .insta-overlay svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--white);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .instagram-follow {
+      text-align: center;
+      margin-top: 2.8rem;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.95rem 2.4rem;
+      border: 1px solid var(--brown);
+      color: var(--brown);
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline:hover {
+      background: var(--brown);
+      color: var(--white);
+    }
+
+    /* ─────────────────────────────────────────
+       CONTACT
+    ───────────────────────────────────────── */
+    #contact {
+      padding: var(--space-2xl) 0;
+      background: var(--cream);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .contact-text .eyebrow { margin-bottom: 1.4rem; }
+
+    .contact-title {
+      font-size: clamp(2.4rem, 3.5vw, 4rem);
+      margin-bottom: 1.8rem;
+    }
+
+    .contact-title em {
+      font-style: italic;
+      color: var(--brown);
+      display: block;
+    }
+
+    .contact-details {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      border: 1px solid rgba(132,93,61,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .contact-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--brown);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .contact-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--brown-light);
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-value {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    .contact-image-wrap {
+      position: relative;
+    }
+
+    .contact-img {
+      width: 100%;
+      height: 620px;
+      object-fit: cover;
+    }
+
+    .contact-img-badge {
+      position: absolute;
+      bottom: -1.5rem;
+      left: -1.5rem;
+      width: 140px;
+      height: 140px;
+      background: var(--brown);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2rem;
+      padding: 1rem;
+    }
+
+    .badge-number {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1;
+    }
+
+    .badge-text {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(243,237,223,0.7);
+      text-align: center;
+    }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: rgba(243,237,223,0.6);
+      padding: 5rem 0 2.5rem;
+    }
+
+    .footer-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 4rem;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid rgba(243,237,223,0.1);
+    }
+
+    .footer-brand-name {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--cream);
+      letter-spacing: 0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .footer-tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: rgba(243,237,223,0.45);
+      margin-bottom: 1.8rem;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(243,237,223,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .footer-social a:hover {
+      border-color: var(--brown-light);
+      background: rgba(132,93,61,0.2);
+    }
+
+    .footer-social svg {
+      width: 14px;
+      height: 14px;
+      stroke: rgba(243,237,223,0.6);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .footer-col-title {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-col ul li a {
+      font-size: 0.88rem;
+      color: rgba(243,237,223,0.5);
+      transition: color 0.3s ease;
+    }
+
+    .footer-col ul li a:hover { color: var(--cream); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 2rem;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(243,237,223,0.3);
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 1.8rem;
+    }
+
+    .footer-legal a {
+      font-size: 0.75rem;
+      color: rgba(243,237,223,0.3);
+      transition: color 0.3s;
+    }
+
+    .footer-legal a:hover { color: rgba(243,237,223,0.6); }
+
+    /* ─────────────────────────────────────────
+       ANIMATIONS
+    ───────────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-up.delay-1 { transition-delay: 0.12s; }
+    .fade-up.delay-2 { transition-delay: 0.24s; }
+    .fade-up.delay-3 { transition-delay: 0.36s; }
+    .fade-up.delay-4 { transition-delay: 0.48s; }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .service-card:nth-child(3) { margin-top: 0; }
+      .instagram-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 3rem; }
+    }
+
+    @media (max-width: 860px) {
+      nav { padding: 1.4rem 1.8rem; }
+      nav.scrolled { padding: 0.9rem 1.8rem; }
+      .nav-links { display: none; }
+      .hero-content { padding: 0 1.8rem 5rem; }
+      .hero-scroll { right: 1.8rem; }
+      .section-inner { padding: 0 1.8rem; }
+      #about, #services, #journal, #contact, #instagram { padding: 5rem 0; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-images { height: 420px; }
+      .about-text { padding-left: 0; }
+      .services-header { grid-template-columns: 1fr; gap: 1.5rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card:nth-child(2) { margin-top: 0; }
+      .service-feature { grid-template-columns: 1fr; }
+      .service-feature-img { height: 350px; }
+      .service-feature-text { padding: 2.5rem; }
+      .journal-grid { grid-template-columns: 1fr; }
+      .journal-card:not(:first-child) .journal-card-img-wrap { aspect-ratio: 16/9; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-img { height: 380px; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+      .instagram-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 520px) {
+      .instagram-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav id="main-nav">
+    <a href="#" class="nav-logo">Mara Gardenita</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#journal">Journal</a></li>
+      <li><a href="#instagram">Gallery</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Inquire</a>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="hero-bg" id="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="eyebrow">Bespoke Floral Design · Est. 2018</p>
+      <h1 class="display hero-title">
+        Where every bloom<br /><em>tells a story.</em>
+      </h1>
+      <p class="hero-subtitle">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim.
+      </p>
+      <a href="#services" class="btn-primary">Explore Our Work</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ── MARQUEE ── -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-inner">
+      <span>Wedding Florals</span><span class="dot">·</span>
+      <span>Seasonal Arrangements</span><span class="dot">·</span>
+      <span>Event Design</span><span class="dot">·</span>
+      <span>Studio Bouquets</span><span class="dot">·</span>
+      <span>Dried Botanicals</span><span class="dot">·</span>
+      <span>Corporate Styling</span><span class="dot">·</span>
+      <span>Sympathy Flowers</span><span class="dot">·</span>
+      <span>Wedding Florals</span><span class="dot">·</span>
+      <span>Seasonal Arrangements</span><span class="dot">·</span>
+      <span>Event Design</span><span class="dot">·</span>
+      <span>Studio Bouquets</span><span class="dot">·</span>
+      <span>Dried Botanicals</span><span class="dot">·</span>
+      <span>Corporate Styling</span><span class="dot">·</span>
+      <span>Sympathy Flowers</span><span class="dot">·</span>
+    </div>
+  </div>
+
+  <!-- ── ABOUT ── -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-images fade-up">
+          <img
+            class="about-img-main"
+            src="https://images.unsplash.com/photo-1533038590840-1cde6e668a91?w=900&q=85&auto=format&fit=crop"
+            alt="Mara arranging flowers in her studio"
+            loading="lazy"
+          />
+          <img
+            class="about-img-accent"
+            src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=600&q=85&auto=format&fit=crop"
+            alt="Close-up of garden roses"
+            loading="lazy"
+          />
+        </div>
+        <div class="about-text">
+          <p class="eyebrow fade-up">Our Story</p>
+          <h2 class="display about-title fade-up delay-1">
+            Rooted in nature,<br /><em>grown with intention.</em>
+          </h2>
+          <p class="body-copy fade-up delay-2">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+          <p class="body-copy fade-up delay-2">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <p class="about-signature fade-up delay-3">— Mara Reyes, Founder</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVICES ── -->
+  <section id="services">
+    <div class="section-inner">
+      <div class="services-header">
+        <div>
+          <p class="eyebrow fade-up">What We Offer</p>
+          <h2 class="display services-title fade-up delay-1">
+            Services crafted<br /><em>for every occasion.</em>
+          </h2>
+        </div>
+        <p class="body-copy services-intro fade-up delay-2">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <!-- Card 1 -->
+        <div class="service-card fade-up">
+          <div class="service-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=85&auto=format&fit=crop"
+              alt="Wedding floral arrangement"
+              loading="lazy"
+            />
+          </div>
+          <div class="service-info">
+            <p class="service-number">01</p>
+            <h3 class="service-name">Wedding Arrangements</h3>
+            <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
+            <a href="#contact" class="service-link">
+              Inquire
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="service-card fade-up delay-1">
+          <div class="service-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=800&q=85&auto=format&fit=crop"
+              alt="Event floral styling"
+              loading="lazy"
+            />
+          </div>
+          <div class="service-info">
+            <p class="service-number">02</p>
+            <h3 class="service-name">Event Styling</h3>
+            <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+            <a href="#contact" class="service-link">
+              Inquire
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="service-card fade-up delay-2">
+          <div class="service-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=85&auto=format&fit=crop"
+              alt="Studio bouquets"
+              loading="lazy"
+            />
+          </div>
+          <div class="service-info">
+            <p class="service-number">03</p>
+            <h3 class="service-name">Studio Bouquets</h3>
+            <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</p>
+            <a href="#contact" class="service-link">
+              Order
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature service -->
+      <div class="service-feature fade-up">
+        <img
+          class="service-feature-img"
+          src="https://images.unsplash.com/photo-1562113530-57ba467cea38?w=1100&q=85&auto=format&fit=crop"
+          alt="Subscription florals"
+          loading="lazy"
+        />
+        <div class="service-feature-text">
+          <p class="eyebrow">Signature Offering</p>
+          <h3 class="display service-feature-title">
+            Floral Subscriptions<br /><em>for the home.</em>
+          </h3>
+          <p class="body-copy" style="margin-bottom:2rem;">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
+          </p>
+          <p class="body-copy" style="margin-bottom:2.5rem;">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate.
+          </p>
+          <a href="#contact" class="btn-primary">Start a Subscription</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── JOURNAL ── -->
+  <section id="journal">
+    <div class="section-inner">
+      <div class="journal-header">
+        <div>
+          <p class="eyebrow fade-up">From the Studio</p>
+          <h2 class="display journal-title fade-up delay-1">
+            The<br /><em>Journal.</em>
+          </h2>
+        </div>
+        <a href="#" class="journal-all fade-up delay-2">View All Posts</a>
+      </div>
+
+      <div class="journal-grid">
+        <div class="journal-card fade-up">
+          <div class="journal-card-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1471086569966-db3eebc25a59?w=900&q=85&auto=format&fit=crop"
+              alt="Spring wedding at Villa del Mar"
+              loading="lazy"
+            />
+          </div>
+          <div class="journal-card-body">
+            <p class="journal-date">March 12, 2026</p>
+            <h3 class="journal-card-title">A Spring Wedding at Villa del Mar — Behind the Blooms</h3>
+            <p class="journal-card-excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud exercitation.</p>
+          </div>
+        </div>
+
+        <div class="journal-card fade-up delay-1">
+          <div class="journal-card-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=700&q=85&auto=format&fit=crop"
+              alt="Dried botanicals guide"
+              loading="lazy"
+            />
+          </div>
+          <div class="journal-card-body">
+            <p class="journal-date">February 28, 2026</p>
+            <h3 class="journal-card-title">The Art of Drying: How to Preserve Summer's Blooms</h3>
+            <p class="journal-card-excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi aliquip.</p>
+          </div>
+        </div>
+
+        <div class="journal-card fade-up delay-2">
+          <div class="journal-card-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=700&q=85&auto=format&fit=crop"
+              alt="Spring season florals"
+              loading="lazy"
+            />
+          </div>
+          <div class="journal-card-body">
+            <p class="journal-date">February 14, 2026</p>
+            <h3 class="journal-card-title">What's in Season This Spring — Our Grower's Market Picks</h3>
+            <p class="journal-card-excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INSTAGRAM ── -->
+  <section id="instagram">
+    <div class="section-inner">
+      <div class="instagram-header">
+        <p class="eyebrow fade-up">Follow Along</p>
+        <h2 class="instagram-handle fade-up delay-1">@maragardenita</h2>
+      </div>
+    </div>
+    <div class="instagram-grid" role="list" aria-label="Instagram feed">
+      <div class="insta-item fade-up" role="listitem">
+        <img src="https://images.unsplash.com/photo-1533038590840-1cde6e668a91?w=500&q=80&auto=format&fit=crop" alt="Instagram post 1" loading="lazy" />
+        <div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
+      </div>
+      <div class="insta-item fade-up delay-1" role="listitem">
+        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=500&q=80&auto=format&fit=crop" alt="Instagram post 2" loading="lazy" />
+        <div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
+      </div>
+      <div class="insta-item fade-up delay-2" role="listitem">
+        <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500&q=80&auto=format&fit=crop" alt="Instagram post 3" loading="lazy" />
+        <div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
+      </div>
+      <div class="insta-item fade-up delay-1" role="listitem">
+        <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=500&q=80&auto=format&fit=crop" alt="Instagram post 4" loading="lazy" />
+        <div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
+      </div>
+      <div class="insta-item fade-up delay-2" role="listitem">
+        <img src="https://images.unsplash.com/photo-1471086569966-db3eebc25a59?w=500&q=80&auto=format&fit=crop" alt="Instagram post 5" loading="lazy" />
+        <div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
+      </div>
+      <div class="insta-item fade-up delay-3" role="listitem">
+        <img src="https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=500&q=80&auto=format&fit=crop" alt="Instagram post 6" loading="lazy" />
+        <div class="insta-overlay"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
+      </div>
+    </div>
+    <div class="instagram-follow">
+      <a href="https://instagram.com/maragardenita" target="_blank" rel="noopener" class="btn-outline">Follow on Instagram</a>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="contact-text">
+          <p class="eyebrow fade-up">Get in Touch</p>
+          <h2 class="display contact-title fade-up delay-1">
+            Let's create<br /><em>something beautiful.</em>
+          </h2>
+          <p class="body-copy fade-up delay-2">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris.
+          </p>
+
+          <div class="contact-details">
+            <div class="contact-item fade-up delay-1">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <p class="contact-label">Email</p>
+                <p class="contact-value">hello@maragardenita.com</p>
+              </div>
+            </div>
+
+            <div class="contact-item fade-up delay-2">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.07 0h3a2 2 0 012 1.72c.12.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0122 14.9v2.02z"/></svg>
+              </div>
+              <div>
+                <p class="contact-label">Phone</p>
+                <p class="contact-value">+1 (555) 842 0037</p>
+              </div>
+            </div>
+
+            <div class="contact-item fade-up delay-3">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <p class="contact-label">Studio</p>
+                <p class="contact-value">14 Blossom Lane, Studio 4<br />Los Angeles, CA 90026</p>
+              </div>
+            </div>
+
+            <div class="contact-item fade-up delay-3">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <p class="contact-label">Studio Hours</p>
+                <p class="contact-value">Tue – Sat, 9am – 5pm</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-image-wrap fade-up delay-2">
+          <img
+            class="contact-img"
+            src="https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=1000&q=85&auto=format&fit=crop"
+            alt="Mara Gardenita studio"
+            loading="lazy"
+          />
+          <div class="contact-img-badge">
+            <span class="badge-number">8+</span>
+            <span class="badge-text">Years of Floral Artistry</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <p class="footer-brand-name">Mara Gardenita</p>
+          <p class="footer-tagline">Lorem ipsum dolor sit amet,<br />consectetur adipiscing elit.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+            </a>
+            <a href="#" aria-label="Pinterest">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.03-2.83.19-.77 1.27-5.37 1.27-5.37s-.32-.65-.32-1.61c0-1.51.88-2.64 1.97-2.64.93 0 1.38.7 1.38 1.54 0 .94-.6 2.34-.91 3.64-.26 1.09.54 1.97 1.6 1.97 1.93 0 3.22-2.48 3.22-5.41 0-2.23-1.52-3.91-4.27-3.91-3.11 0-5.04 2.32-5.04 4.92 0 .89.26 1.52.67 2.01.19.22.21.31.14.57-.05.18-.16.63-.21.81-.07.26-.28.35-.52.26-1.44-.59-2.11-2.18-2.11-3.96 0-2.93 2.48-6.47 7.41-6.47 3.97 0 6.6 2.89 6.6 5.99 0 4.11-2.28 7.18-5.61 7.18-1.12 0-2.18-.6-2.54-1.28l-.69 2.72c-.25.97-.92 2.19-1.37 2.92.97.28 2 .43 3.06.43 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <p class="footer-col-title">Services</p>
+          <ul>
+            <li><a href="#services">Wedding Florals</a></li>
+            <li><a href="#services">Event Styling</a></li>
+            <li><a href="#services">Studio Bouquets</a></li>
+            <li><a href="#services">Subscriptions</a></li>
+            <li><a href="#services">Dried Botanicals</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <p class="footer-col-title">Explore</p>
+          <ul>
+            <li><a href="#about">About Mara</a></li>
+            <li><a href="#journal">Journal</a></li>
+            <li><a href="#instagram">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <p class="footer-col-title">Studio</p>
+          <ul>
+            <li><a href="#">14 Blossom Lane, Studio 4</a></li>
+            <li><a href="#">Los Angeles, CA 90026</a></li>
+            <li><a href="mailto:hello@maragardenita.com">hello@maragardenita.com</a></li>
+            <li><a href="tel:+15558420037">+1 (555) 842 0037</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Mara Gardenita. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Sustainability</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll behavior
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Hero image Ken Burns on load
+    const heroBg = document.getElementById('hero-bg');
+    heroBg.classList.add('loaded');
+
+    // Intersection Observer for fade-up animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Respect reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.fade-up').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+      document.querySelector('.marquee-inner').style.animation = 'none';
+    }
+  </script>
+</body>
+</html>
